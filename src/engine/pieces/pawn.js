@@ -37,6 +37,17 @@ export default class Pawn extends Piece {
             }
         }
 
+        for (let colDirection = -1; colDirection<2; colDirection +=2) {
+            const squareToAdd = Square.at(currentSquare.row + multiplier, currentSquare.col + colDirection);
+
+            if (board.checkIfValidSquare(squareToAdd)){
+                const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
+                if(statusOfSquareToAdd.squareOccupied && statusOfSquareToAdd.squarePassable){
+                    allowedMoves.push(squareToAdd);
+                }
+            }
+        }
+
         return allowedMoves;
 
     }
