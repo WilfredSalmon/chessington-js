@@ -18,7 +18,7 @@ export default class Knight extends Piece {
                 for (let colDirection=-1;colDirection<2;colDirection+=2) {
 
                     const squareToAdd = Square.at(currentSquare.row + rowLength*rowDirection,currentSquare.col + colLength*colDirection)
-                    if(board.checkIfValidSquare(squareToAdd.row,squareToAdd.col)) {
+                    if(board.checkIfValidSquare(squareToAdd)) {
                         allowedMoves.push(squareToAdd);
                     }
                 }

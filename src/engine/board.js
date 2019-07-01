@@ -47,7 +47,9 @@ export default class Board {
 
     }
 
-    checkIfValidSquare(row,col) {
+    checkIfValidSquare(square) {
+        const row = square.row;
+        const col = square.col;
         return (row > -1 && col > -1 && row < GameSettings.BOARD_SIZE && col < GameSettings.BOARD_SIZE);
     }
 }

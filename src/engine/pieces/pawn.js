@@ -16,7 +16,6 @@ export default class Pawn extends Piece {
 
         if (this.player === Player.BLACK) {
             multiplier = -1;
-            console.log('Player is Black')
         }
 
         const squareToAdd = Square.at(currentSquare.row + multiplier, currentSquare.col);

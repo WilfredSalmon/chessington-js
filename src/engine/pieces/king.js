@@ -14,7 +14,7 @@ export default class King extends Piece {
             for (let colAdd = -1; colAdd<2;colAdd++) {
 
                 const squareToAdd = Square.at(currentSquare.row + rowAdd, currentSquare.col + colAdd);
-                if (board.checkIfValidSquare(squareToAdd.row, squareToAdd.col) && !currentSquare.equals(squareToAdd)) {
+                if (board.checkIfValidSquare(squareToAdd) && !currentSquare.equals(squareToAdd)) {
                     allowedMoves.push(squareToAdd);
                 }
             }

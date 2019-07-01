@@ -11,18 +11,34 @@ export default class Bishop extends Piece {
         const currentSquare = board.findPiece(this);
         const allowedMoves = [];
 
-        for (let rowDirection=-1;rowDirection<2;rowDirection+=2) {
-            for (let colDirection=-1;colDirection<2;colDirection+=2) {
+        const dirs = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
-                let iterateSquare = currentSquare;
+        for(let i=0; i<dirs.length; i++) {
+            const rowDirection = dirs[i][0];
+            const colDirection = dirs[i][1];
 
-                while (board.checkIfValidSquare(iterateSquare.row + rowDirection,iterateSquare.col + colDirection )) {
-                    iterateSquare = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
-                    allowedMoves.push(iterateSquare);
-                }
+            let notBlocked = true;
+            let iterateSquare = currentSquare;
+            let squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
+
+            while(board.checkIfValidSquare(squareToAdd) && notBlocked) {
+                if (board.getPiece(squareToAdd) !== undefined) {
+
+                    if (board.getPiece(squareToAdd).player === this.player) {notBlocked = false;}
+                    else {
+                        allowedMoves.push(squareToAdd);
+                        notBlocked = false;
+                    }
+
+                } else {allowedMoves.push(squareToAdd);}
+
+                iterateSquare = squareToAdd;
+                squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
             }
         }
 
         return allowedMoves;
     }
+
+
 }
