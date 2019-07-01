@@ -11,19 +11,26 @@ export default class Pawn extends Piece {
 
         const currentSquare = board.findPiece(this);
         const allowedMoves = [];
+        let multiplier = 1;
 
-        if (this.player === Player.WHITE) {
-            allowedMoves.push(Square.at(currentSquare.row + 1,currentSquare.col));
 
-            if (this.hasNotMoved) {
-                allowedMoves.push(Square.at(currentSquare.row + 2,currentSquare.col))
-            }
+        if (this.player === Player.BLACK) {
+            multiplier = -1;
+            console.log('Player is Black')
         }
-        else {
-            allowedMoves.push(Square.at(currentSquare.row - 1,currentSquare.col ));
 
-            if (this.hasNotMoved) {
-                allowedMoves.push(Square.at(currentSquare.row - 2,currentSquare.col))
+        const squareToAdd = Square.at(currentSquare.row + multiplier, currentSquare.col);
+
+        if (board.getPiece(squareToAdd) === undefined) {
+            allowedMoves.push(squareToAdd);
+        }
+
+        if (this.hasNotMoved) {
+            const squareToAdd= Square.at(currentSquare.row + 2*multiplier,currentSquare.col);
+            const possibleBlockingSquare = Square.at(currentSquare.row + multiplier, currentSquare.col);
+
+            if (board.getPiece(squareToAdd) === undefined && board.getPiece(possibleBlockingSquare) === undefined) {
+                allowedMoves.push(squareToAdd);
             }
         }
 
