@@ -1,7 +1,7 @@
 {
   "name": "chessington",
   "version": "1.0.0",
-  "description": "",
+  "description": "Starter project for a chess-based TDD exercise",
   "main": "src/index.js",
   "scripts": {
     "clean": "del-cli dist/**/* logs/*",
@@ -22,5 +22,17 @@
   },
   "dependencies": {
     "express": "^4.16.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilfredSalmon/chessington-js.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/WilfredSalmon/chessington-js/issues"
+  },
+  "homepage": "https://github.com/WilfredSalmon/chessington-js#readme"
 }
