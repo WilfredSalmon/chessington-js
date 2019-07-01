@@ -4,7 +4,7 @@ import Player from '../player';
 
 export default class Pawn extends Piece {
     constructor(player) {
-        super(player);
+        super(player,'Pawn');
     }
 
     getAvailableMoves(board) {

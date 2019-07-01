@@ -52,4 +52,20 @@ export default class Board {
         const col = square.col;
         return (row > -1 && col > -1 && row < GameSettings.BOARD_SIZE && col < GameSettings.BOARD_SIZE);
     }
+
+    checkIfSquarePassable(square,pieceMoving) {
+        if (this.getPiece(square) === undefined) {return {squarePassable: true, squareOccupied: false};}
+
+        //Otherwise there is a piece
+        const occupyingPiece = this.getPiece(square);
+
+        // Friendly piece
+        if (occupyingPiece.player === pieceMoving.player) {return {squarePassable: false, squareOccupied: true}}
+
+        // King case: never passable
+        if (occupyingPiece.type === 'King') {return {squarePassable: false, squareOccupied: true};}
+
+        // Enemy-non King case
+        return {squarePassable: true, squareOccupied: true};
+    }
 }

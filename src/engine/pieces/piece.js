@@ -1,9 +1,10 @@
 import Square from "../square";
 
 export default class Piece {
-    constructor(player) {
+    constructor(player,type) {
         this.player = player;
         this.hasNotMoved = true;
+        this.type = type
     }
 
     getAvailableMoves(board) {
@@ -27,15 +28,16 @@ export default class Piece {
             let squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
 
             while(board.checkIfValidSquare(squareToAdd) && notBlocked) {
-                if (board.getPiece(squareToAdd) !== undefined) {
+                const statusOfSqaureToAdd = board.checkIfSquarePassable(squareToAdd,this);
 
-                    if (board.getPiece(squareToAdd).player === this.player) {notBlocked = false;}
-                    else {
+                if (statusOfSqaureToAdd.squareOccupied) {
+                    notBlocked = false;
+                    if (statusOfSqaureToAdd.squarePassable) {
                         allowedMoves.push(squareToAdd);
-                        notBlocked = false;
                     }
-
-                } else {allowedMoves.push(squareToAdd);}
+                } else {
+                    allowedMoves.push(squareToAdd);
+                }
 
                 iterateSquare = squareToAdd;
                 squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
@@ -44,4 +46,5 @@ export default class Piece {
 
         return allowedMoves;
     }
+
 }

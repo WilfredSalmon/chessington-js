@@ -3,7 +3,7 @@ import Square from "../square";
 
 export default class King extends Piece {
     constructor(player) {
-        super(player);
+        super(player,'King');
     }
 
     getAvailableMoves(board) {
