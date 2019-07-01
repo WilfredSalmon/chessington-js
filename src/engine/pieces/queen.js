@@ -26,10 +26,12 @@ export default class Queen extends Piece {
             for (let colDirection=-1;colDirection<2;colDirection+=2) {
 
                 let iterateSquare = currentSquare;
+                let squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection );
 
-                while (board.checkIfValidSquare(iterateSquare.row + rowDirection,iterateSquare.col + colDirection )) {
-                    iterateSquare = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
-                    allowedMoves.push(iterateSquare);
+                while (board.checkIfValidSquare(squareToAdd.row,squareToAdd.col)) {
+                    allowedMoves.push(squareToAdd);
+                    iterateSquare = squareToAdd;
+                    squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection );
                 }
             }
         }
