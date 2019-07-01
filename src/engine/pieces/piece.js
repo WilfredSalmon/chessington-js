@@ -19,20 +19,20 @@ export default class Piece {
     getAvailableMovesFromDirections(dirs,currentSquare,board) {
         const allowedMoves = [];
 
-        for(let i=0; i<dirs.length; i++) {
-            const rowDirection = dirs[i][0];
-            const colDirection = dirs[i][1];
+        for(let direction of dirs) {
+            const rowDirection = direction[0];
+            const colDirection = direction[1];
 
             let notBlocked = true;
             let iterateSquare = currentSquare;
             let squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
 
             while(board.checkIfValidSquare(squareToAdd) && notBlocked) {
-                const statusOfSqaureToAdd = board.checkIfSquarePassable(squareToAdd,this);
+                const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
 
-                if (statusOfSqaureToAdd.squareOccupied) {
+                if (statusOfSquareToAdd.squareOccupied) {
                     notBlocked = false;
-                    if (statusOfSqaureToAdd.squarePassable) {
+                    if (statusOfSquareToAdd.squarePassable) {
                         allowedMoves.push(squareToAdd);
                     }
                 } else {

@@ -63,9 +63,11 @@ export default class Board {
         if (occupyingPiece.player === pieceMoving.player) {return {squarePassable: false, squareOccupied: true}}
 
         // King case: never passable
-        if (occupyingPiece.type === 'King') {return {squarePassable: false, squareOccupied: true};}
+        if (occupyingPiece.type === TYPES.KING) {return {squarePassable: false, squareOccupied: true};}
 
         // Enemy-non King case
         return {squarePassable: true, squareOccupied: true};
     }
 }
+
+const TYPES = {KING:"King",QUEEN:"Queen"};

@@ -67,5 +67,17 @@ describe('Bishop', () => {
 
         moves.should.deep.include(Square.at(3,3));
 
-    })
+    });
+
+    it('cannot take friendly pieces', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const friendlyPiece = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(2,3),bishop);
+        board.setPiece(Square.at(1,2),friendlyPiece);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.not.deep.include(Square.at(1,2));
+
+    });
 });
