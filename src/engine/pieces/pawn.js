@@ -20,16 +20,20 @@ export default class Pawn extends Piece {
 
         const squareToAdd = Square.at(currentSquare.row + multiplier, currentSquare.col);
 
-        if (board.getPiece(squareToAdd) === undefined) {
-            allowedMoves.push(squareToAdd);
+        if (board.checkIfValidSquare(squareToAdd)) {
+            if (board.getPiece(squareToAdd) === undefined) {
+                allowedMoves.push(squareToAdd);
+            }
         }
 
         if (this.hasNotMoved) {
             const squareToAdd= Square.at(currentSquare.row + 2*multiplier,currentSquare.col);
             const possibleBlockingSquare = Square.at(currentSquare.row + multiplier, currentSquare.col);
 
-            if (board.getPiece(squareToAdd) === undefined && board.getPiece(possibleBlockingSquare) === undefined) {
-                allowedMoves.push(squareToAdd);
+            if (board.checkIfValidSquare(squareToAdd) && board.checkIfValidSquare(possibleBlockingSquare)) {
+                if (board.getPiece(squareToAdd) === undefined && board.getPiece(possibleBlockingSquare) === undefined) {
+                    allowedMoves.push(squareToAdd);
+                }
             }
         }
 
