@@ -1,6 +1,7 @@
 export default class Piece {
     constructor(player) {
         this.player = player;
+        this.hasNotMoved = true;
     }
 
     getAvailableMoves(board) {
