@@ -46,4 +46,8 @@ export default class Board {
         movingPiece.hasNotMoved = false;
 
     }
+
+    checkIfValidSquare(row,col) {
+        return (row > -1 && col > -1 && row < GameSettings.BOARD_SIZE && col < GameSettings.BOARD_SIZE);
+    }
 }
