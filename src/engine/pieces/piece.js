@@ -1,6 +1,7 @@
 import Square from "../square";
 
 export default class Piece {
+
     constructor(player,type) {
         this.player = player;
         this.hasNotMoved = true;
