@@ -6,6 +6,7 @@ export default class Board {
     constructor(currentPlayer) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
+        this.lastPieceToMove = null;
     }
 
     createBoard() {
@@ -36,14 +37,22 @@ export default class Board {
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
+
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
+
+            if (movingPiece.type === 'Pawn' && !this.checkIfSquarePassable(toSquare,movingPiece).squareOccupied && toSquare.col !== fromSquare.col) {
+                this.setPiece(Square.at(fromSquare.row,toSquare.col), undefined);
+                console.log(`deleting piece at ${Square.at(fromSquare.row,toSquare.col).toString()}`);
+            }
+
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
 
         movingPiece.hasNotMoved = false;
+        this.lastPieceToMove = movingPiece;
 
     }
 
@@ -55,7 +64,6 @@ export default class Board {
 
     checkIfSquarePassable(square,pieceMoving) {
         if (this.getPiece(square) === undefined) {return {squarePassable: true, squareOccupied: false};}
-
         //Otherwise there is a piece
         const occupyingPiece = this.getPiece(square);
 

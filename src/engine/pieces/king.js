@@ -14,15 +14,22 @@ export default class King extends Piece {
             for (let colAdd = -1; colAdd<2;colAdd++) {
 
                 const squareToAdd = Square.at(currentSquare.row + rowAdd, currentSquare.col + colAdd);
-                if (board.checkIfValidSquare(squareToAdd) && !currentSquare.equals(squareToAdd)) {
-
-                    const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
-                    if (statusOfSquareToAdd.squarePassable) {allowedMoves.push(squareToAdd);}
-
+                if (this.canSquareBeAdded(board, currentSquare, squareToAdd)) {
+                    allowedMoves.push(squareToAdd);
                 }
             }
         }
 
         return allowedMoves;
+    }
+
+    canSquareBeAdded(board,currentSquare,squareToAdd) {
+        if (board.checkIfValidSquare(squareToAdd) && !currentSquare.equals(squareToAdd)) {
+
+            const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
+            if (statusOfSquareToAdd.squarePassable) {return true;}
+
+        }
+        return false;
     }
 }
