@@ -22,7 +22,7 @@ export default class Bishop extends Piece {
                 }
             }
         }
-        
+
         return allowedMoves;
     }
 }
