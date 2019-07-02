@@ -9,7 +9,7 @@ export default class Piece {
     }
 
     getAvailableMoves(board) {
-        throw new Error('This method must be implemented, and return a list of available moves');
+        // See each piece
     }
 
     moveTo(board, newSquare) {
@@ -19,6 +19,7 @@ export default class Piece {
 
     getAvailableMovesFromDirections(dirs,currentSquare,board) {
         const allowedMoves = [];
+        let attackingKing = false;
 
         for(let direction of dirs) {
             const rowDirection = direction[0];
@@ -40,12 +41,16 @@ export default class Piece {
                     allowedMoves.push(squareToAdd);
                 }
 
+                if (statusOfSquareToAdd.attackingKing) {
+                    attackingKing = true;
+                }
+
                 iterateSquare = squareToAdd;
                 squareToAdd = Square.at(iterateSquare.row + rowDirection,iterateSquare.col + colDirection);
             }
         }
 
-        return allowedMoves;
+        return {allowedMoves: allowedMoves, attackingKing: attackingKing};
     }
 
 }

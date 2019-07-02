@@ -10,6 +10,7 @@ export default class Pawn extends Piece {
     getAvailableMoves(board) {
 
         const currentSquare = board.findPiece(this);
+        let attackingKing = false;
         const allowedMoves = [];
         let multiplier = 1;
 
@@ -48,6 +49,7 @@ export default class Pawn extends Piece {
                 const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
 
                 if(statusOfSquareToAdd.squareOccupied && statusOfSquareToAdd.squarePassable) {allowedMoves.push(squareToAdd);}
+                if(statusOfSquareToAdd.attackingKing) {attackingKing = true;}
 
                 const possibleEnPassantSquare = Square.at(currentSquare.row, currentSquare.col + colDirection);
 
@@ -60,7 +62,7 @@ export default class Pawn extends Piece {
 
         }
 
-        return allowedMoves;
+        return {allowedMoves: allowedMoves, attackingKing: attackingKing};
 
     }
 }

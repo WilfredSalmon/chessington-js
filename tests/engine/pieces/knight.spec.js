@@ -22,7 +22,7 @@ describe('Knight', () => {
             Square.at(5, 6), Square.at(5, 2), Square.at(6, 5), Square.at(6, 3)
         ];
 
-        moves.should.deep.include.members(expectedMoves);
+        moves.allowedMoves.should.deep.include.members(expectedMoves);
     });
 
     it('cannot make any other moves', () => {
@@ -31,7 +31,7 @@ describe('Knight', () => {
 
         const moves = knight.getAvailableMoves(board);
 
-        moves.should.have.length(8);
+        moves.allowedMoves.should.have.length(8);
     });
 
     it('can jump over other pieces', () => {
@@ -44,7 +44,7 @@ describe('Knight', () => {
 
         const moves = knight.getAvailableMoves(board);
 
-        moves.should.deep.include(Square.at(2, 5));
+        moves.allowedMoves.should.deep.include(Square.at(2, 5));
     });
 
     it('cannot leave the board', () => {
@@ -55,7 +55,7 @@ describe('Knight', () => {
 
         const expectedMoves = [Square.at(1, 2), Square.at(2, 1)];
 
-        moves.should.deep.have.members(expectedMoves);
+        moves.allowedMoves.should.deep.have.members(expectedMoves);
     });
 
     it('can take opposing pieces', () => {
@@ -66,7 +66,7 @@ describe('Knight', () => {
 
         const moves = knight.getAvailableMoves(board);
 
-        moves.should.deep.include(Square.at(3, 6));
+        moves.allowedMoves.should.deep.include(Square.at(3, 6));
     });
 
     it('cannot take the opposing king', () => {
@@ -77,7 +77,7 @@ describe('Knight', () => {
 
         const moves = knight.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(3, 6));
+        moves.allowedMoves.should.not.deep.include(Square.at(3, 6));
     });
 
     it('cannot take friendly pieces', () => {
@@ -88,6 +88,6 @@ describe('Knight', () => {
 
         const moves = knight.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(3, 6));
+        moves.allowedMoves.should.not.deep.include(Square.at(3, 6));
     });
 });

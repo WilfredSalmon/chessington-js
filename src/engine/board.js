@@ -3,10 +3,13 @@ import GameSettings from './gameSettings';
 import Square from './square';
 
 export default class Board {
+
     constructor(currentPlayer) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
         this.lastPieceToMove = null;
+        this.whiteInCheck = false;
+        this.blackInCheck = false;
     }
 
     createBoard() {
@@ -41,7 +44,11 @@ export default class Board {
 
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
 
-            if (movingPiece.type === 'Pawn' && !this.checkIfSquarePassable(toSquare,movingPiece).squareOccupied && toSquare.col !== fromSquare.col) {
+            if (this.checkIfMoveGivesCheck(movingPiece, fromSquare, toSquare, this)) {
+                console.log("Move Gives Check")
+            }
+
+            if (movingPiece.type === TYPES.PAWN && !this.checkIfSquarePassable(toSquare,movingPiece).squareOccupied && toSquare.col !== fromSquare.col) {
                 this.setPiece(Square.at(fromSquare.row,toSquare.col), undefined);
                 console.log(`deleting piece at ${Square.at(fromSquare.row,toSquare.col).toString()}`);
             }
@@ -63,19 +70,32 @@ export default class Board {
     }
 
     checkIfSquarePassable(square,pieceMoving) {
-        if (this.getPiece(square) === undefined) {return {squarePassable: true, squareOccupied: false};}
+        if (this.getPiece(square) === undefined) {return {squarePassable: true, squareOccupied: false, attackingKing: false};}
         //Otherwise there is a piece
         const occupyingPiece = this.getPiece(square);
 
         // Friendly piece
-        if (occupyingPiece.player === pieceMoving.player) {return {squarePassable: false, squareOccupied: true}}
+        if (occupyingPiece.player === pieceMoving.player) {return {squarePassable: false, squareOccupied: true, attackingKing: false};}
 
         // King case: never passable
-        if (occupyingPiece.type === TYPES.KING) {return {squarePassable: false, squareOccupied: true};}
+        if (occupyingPiece.type === TYPES.KING) {return {squarePassable: false, squareOccupied: true, attackingKing: true};}
 
         // Enemy-non King case
-        return {squarePassable: true, squareOccupied: true};
+        return {squarePassable: true, squareOccupied: true, attackingKing: false};
+    }
+
+    checkIfMoveGivesCheck(movingPiece,fromSquare,toSquare) {
+
+        const pieceToStore = this.getPiece(toSquare);
+        this.setPiece(toSquare,movingPiece);
+        const givesCheck = movingPiece.getAvailableMoves(this).attackingKing;
+
+        this.setPiece(fromSquare,movingPiece);
+        this.setPiece(toSquare,pieceToStore);
+
+        return givesCheck;
+
     }
 }
 
-const TYPES = {KING:"King",QUEEN:"Queen"};
+const TYPES = {KING:"King",QUEEN:"Queen", PAWN: "Pawn"};

@@ -20,8 +20,8 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
             
-            moves.should.have.length(1);
-            moves.should.deep.include(Square.at(3, 0));
+            moves.allowedMoves.should.have.length(1);
+            moves.allowedMoves.should.deep.include(Square.at(3, 0));
         });
 
         it('can move one or two squares up on their first move', () => {
@@ -30,8 +30,8 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.have.length(2);
-            moves.should.deep.include.members([Square.at(2, 7), Square.at(3, 7)]);
+            moves.allowedMoves.should.have.length(2);
+            moves.allowedMoves.should.deep.include.members([Square.at(2, 7), Square.at(3, 7)]);
         });
 
         it('cannot move at the top of the board', () => {
@@ -40,7 +40,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.be.empty;
+            moves.allowedMoves.should.be.empty;
         });
 
         it('can move diagonally if there is a piece to take', () => {
@@ -51,7 +51,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.deep.include(Square.at(5, 3));
+            moves.allowedMoves.should.deep.include(Square.at(5, 3));
         });
 
         it('cannot move diagonally if there is no piece to take', () => {
@@ -60,7 +60,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(5, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(5, 3));
         });
 
         it('cannot take a friendly piece', () => {
@@ -71,7 +71,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(5, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(5, 3));
         });
 
         it('cannot take the opposing king', () => {
@@ -82,7 +82,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(5, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(5, 3));
         });
 
     });
@@ -99,8 +99,8 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
             
-            moves.should.have.length(1);
-            moves.should.deep.include(Square.at(4, 0));
+            moves.allowedMoves.should.have.length(1);
+            moves.allowedMoves.should.deep.include(Square.at(4, 0));
         });
 
         it('can move one or two squares down on their first move', () => {
@@ -109,8 +109,8 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.have.length(2);
-            moves.should.deep.include.members([Square.at(4, 7), Square.at(5, 7)]);
+            moves.allowedMoves.should.have.length(2);
+            moves.allowedMoves.should.deep.include.members([Square.at(4, 7), Square.at(5, 7)]);
         });
 
         it('cannot move at the bottom of the board', () => {
@@ -119,7 +119,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.be.empty;
+            moves.allowedMoves.should.be.empty;
         });
 
         it('can move diagonally if there is a piece to take', () => {
@@ -130,7 +130,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.deep.include(Square.at(3, 3));
+            moves.allowedMoves.should.deep.include(Square.at(3, 3));
         });
 
         it('cannot move diagonally if there is no piece to take', () => {
@@ -139,7 +139,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(3, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(3, 3));
         });
 
         it('cannot take a friendly piece', () => {
@@ -150,7 +150,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(3, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(3, 3));
         });
 
         it('cannot take the opposing king', () => {
@@ -161,7 +161,7 @@ describe('Pawn', () => {
 
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(3, 3));
+            moves.allowedMoves.should.not.deep.include(Square.at(3, 3));
         });
     });
 
@@ -173,7 +173,7 @@ describe('Pawn', () => {
 
         const moves = pawn.getAvailableMoves(board);
 
-        moves.should.be.empty;
+        moves.allowedMoves.should.be.empty;
     });
 
     it('cannot move two squares if there is a piece two sqaures in front', () => {
@@ -184,7 +184,7 @@ describe('Pawn', () => {
 
         const moves = pawn.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(4, 3));
+        moves.allowedMoves.should.not.deep.include(Square.at(4, 3));
     });
 
 });

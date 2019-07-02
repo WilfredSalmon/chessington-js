@@ -24,7 +24,7 @@ describe('Rook', () => {
             Square.at(0, 2), Square.at(2, 2), Square.at(3, 2), Square.at(4, 2), Square.at(5, 2), Square.at(6, 2), Square.at(7, 2)
         ];
 
-        moves.should.deep.include.members(expectedMoves);
+        moves.allowedMoves.should.deep.include.members(expectedMoves);
     });
 
     it('cannot make any other moves', () => {
@@ -33,7 +33,7 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.have.length(14);
+        moves.allowedMoves.should.have.length(14);
     });
 
     it('cannot move through friendly pieces', () => {
@@ -44,7 +44,7 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(4, 7));
+        moves.allowedMoves.should.not.deep.include(Square.at(4, 7));
     });
 
     it('cannot move through opposing pieces', () => {
@@ -55,7 +55,7 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(4, 7));
+        moves.allowedMoves.should.not.deep.include(Square.at(4, 7));
     });
 
     it('can take opposing pieces', () => {
@@ -66,7 +66,7 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.deep.include(Square.at(4, 6));
+        moves.allowedMoves.should.deep.include(Square.at(4, 6));
     });
 
     it('cannot take the opposing king', () => {
@@ -77,7 +77,7 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(4, 6));
+        moves.allowedMoves.should.not.deep.include(Square.at(4, 6));
     });
 
     it('cannot take friendly pieces', () => {
@@ -88,6 +88,6 @@ describe('Rook', () => {
 
         const moves = rook.getAvailableMoves(board);
 
-        moves.should.not.deep.include(Square.at(4, 6));
+        moves.allowedMoves.should.not.deep.include(Square.at(4, 6));
     });
 });

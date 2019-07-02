@@ -20,7 +20,7 @@ export default class King extends Piece {
             }
         }
 
-        return allowedMoves;
+        return {allowedMoves: allowedMoves, attackingKing: false};
     }
 
     canSquareBeAdded(board,currentSquare,squareToAdd) {

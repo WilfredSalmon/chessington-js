@@ -9,6 +9,7 @@ export default class Knight extends Piece {
     getAvailableMoves(board) {
         const currentSquare = board.findPiece(this);
         const allowedMoves = [];
+        let attackingKing = false;
 
         for (let rowLength = 1; rowLength<3;rowLength++) {
 
@@ -23,12 +24,13 @@ export default class Knight extends Piece {
 
                         const statusOfSquareToAdd = board.checkIfSquarePassable(squareToAdd,this);
                         if (statusOfSquareToAdd.squarePassable) {allowedMoves.push(squareToAdd);}
+                        if(statusOfSquareToAdd.givesCheck) {attackingKing = true;}
 
                     }
                 }
             }
         }
 
-        return allowedMoves;
+        return {allowedMoves: allowedMoves, attackingKing: true};
     }
 }
